@@ -17,9 +17,9 @@ public class PanelLogin extends JPanel {
 	private JTextField txPassword;
 	private JButton btnLogin;
 	private JLabel lblRegistrarse;
+	private JTextArea txaErroresLogin;
 
 	private MainWindow m;
-
 	/**
 	 * Create the panel.
 	 */
@@ -33,6 +33,7 @@ public class PanelLogin extends JPanel {
 		add(getTxPassword());
 		add(getBtnLogin());
 		add(getLblRegistrarse());
+		add(getTxaErroresLogin());
 
 	}
 
@@ -48,14 +49,14 @@ public class PanelLogin extends JPanel {
 		if (lblUsername == null) {
 			lblUsername = new JLabel("Username");
 			lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblUsername.setBounds(25, 102, 157, 29);
+			lblUsername.setBounds(25, 74, 157, 29);
 		}
 		return lblUsername;
 	}
-	private JTextField getTxUsername() {
+	public JTextField getTxUsername() {
 		if (txUsername == null) {
 			txUsername = new JTextField();
-			txUsername.setBounds(25, 141, 249, 29);
+			txUsername.setBounds(25, 113, 369, 29);
 			txUsername.setColumns(10);
 		}
 		return txUsername;
@@ -64,15 +65,15 @@ public class PanelLogin extends JPanel {
 		if (lblPassword == null) {
 			lblPassword = new JLabel("Password");
 			lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblPassword.setBounds(25, 182, 157, 29);
+			lblPassword.setBounds(25, 152, 157, 29);
 		}
 		return lblPassword;
 	}
-	private JTextField getTxPassword() {
+	public JTextField getTxPassword() {
 		if (txPassword == null) {
 			txPassword = new JTextField();
 			txPassword.setColumns(10);
-			txPassword.setBounds(25, 221, 249, 29);
+			txPassword.setBounds(25, 191, 369, 29);
 		}
 		return txPassword;
 	}
@@ -81,7 +82,7 @@ public class PanelLogin extends JPanel {
 			btnLogin = new JButton("Login");
 			btnLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					new SignController().login(PanelLogin.this, m);
 				}
 			});
 			btnLogin.setBounds(92, 308, 105, 29);
@@ -102,5 +103,16 @@ public class PanelLogin extends JPanel {
 			lblRegistrarse.setBounds(116, 269, 69, 29);
 		}
 		return lblRegistrarse;
+	}
+	public JTextArea getTxaErroresLogin() {
+		if (txaErroresLogin == null) {
+			txaErroresLogin = new JTextArea();
+			txaErroresLogin.setWrapStyleWord(true);
+			txaErroresLogin.setForeground(Color.RED);
+			txaErroresLogin.setEditable(false);
+			txaErroresLogin.setBackground(SystemColor.menu);
+			txaErroresLogin.setBounds(25, 230, 369, 33);
+		}
+		return txaErroresLogin;
 	}
 }

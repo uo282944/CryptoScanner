@@ -4,18 +4,35 @@ import repositorios.BusinessException;
 import repositorios.buisness.BuisnessFactory;
 import repositorios.buisness.user.UsersService.UserBLDto;
 import vistas.MainWindow;
+import vistas.PanelLogin;
 import vistas.PanelRegistro;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class SignController {
-    public void login(){
-
-    }
 
     public void pasarLogin(MainWindow m){
         m.pasarPanel("LOGIN");
+    }
+    public void login(PanelLogin pn, MainWindow m) {
+        String nick = pn.getTxUsername().getText();
+        String password = pn.getTxPassword().getText();
+
+        try{
+            var user = BuisnessFactory.forUserService().findUserByNick(nick);
+            if (user.isPresent()){
+                if (user.get().password.equals(password)){
+                    m.pasarPanel("CONTROL");
+                }else{
+                    pn.getTxaErroresLogin().setText("The username and the password don't match");
+                }
+            }else{
+                pn.getTxaErroresLogin().setText("The username doesn't exist");
+            }
+        }catch (BusinessException e){
+            e.printStackTrace();
+        }
     }
     public void pasarRegister(MainWindow m){
         m.pasarPanel("REGISTER");
@@ -36,15 +53,21 @@ public class SignController {
             var ev = erroresEmail.isEmpty();
             var nv = erroresNick.isEmpty();
             var pv = erroresContraseña.isEmpty();
+            agregarErrores(pn, erroresNick,erroresEmail,erroresContraseña);
             if (ev && nv && pv){
                 BuisnessFactory.forUserService().addUser(u);
+                limpiarPanelRegistro(pn);
+                m.pasarPanel("LOGIN");
             }
-            agregarErrores(pn, erroresNick,erroresEmail,erroresContraseña);
-            m.pasarPanel("LOGIN");
         }catch (BusinessException e){
             System.out.println("Error al añadir el usuario "+ e);
         }
+    }
 
+    private void limpiarPanelRegistro(PanelRegistro pn) {
+        pn.getTxNick().setText("");
+        pn.getTxEmail().setText("");
+        pn.getTxPassword().setText("");
     }
 
     private void agregarErrores(PanelRegistro pn, String erroresNick, String erroresEmail, String erroresContraseña) {
