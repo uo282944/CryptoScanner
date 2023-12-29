@@ -1,10 +1,10 @@
-package repositorios.persistence.user.impl;
+package modelo.persistence.user.impl;
 
-import repositorios.PersistenceException;
-import repositorios.persistence.user.UserGateway;
-import repositorios.persistence.util.Conf;
-import repositorios.persistence.user.assembler.UserAssembler;
-import repositorios.utils.*;
+import modelo.PersistenceException;
+import modelo.persistence.user.UserGateway;
+import modelo.persistence.util.Conf;
+import modelo.persistence.user.assembler.UserAssembler;
+import modelo.utils.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

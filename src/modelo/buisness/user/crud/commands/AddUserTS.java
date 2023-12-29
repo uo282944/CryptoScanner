@@ -1,10 +1,10 @@
-package repositorios.buisness.user.crud.commands;
+package modelo.buisness.user.crud.commands;
 
-import repositorios.BusinessException;
-import repositorios.buisness.user.UsersService.UserBLDto;
-import repositorios.buisness.util.Command;
-import repositorios.persistence.PersistenceFactory;
-import repositorios.buisness.user.assembler.UserAssembler;
+import modelo.BusinessException;
+import modelo.buisness.user.UsersService.UserBLDto;
+import modelo.buisness.util.Command;
+import modelo.persistence.PersistenceFactory;
+import modelo.buisness.user.assembler.UserAssembler;
 
 import java.util.UUID;
 

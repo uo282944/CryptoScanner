@@ -1,11 +1,11 @@
-package repositorios.buisness.user.crud;
+package modelo.buisness.user.crud;
 
-import repositorios.BusinessException;
-import repositorios.buisness.user.UsersService;
-import repositorios.buisness.user.crud.commands.AddUserTS;
-import repositorios.buisness.user.crud.commands.FindByEmailTS;
-import repositorios.buisness.user.crud.commands.FindByNickTS;
-import repositorios.buisness.util.CommandExecutor;
+import modelo.BusinessException;
+import modelo.buisness.user.UsersService;
+import modelo.buisness.user.crud.commands.AddUserTS;
+import modelo.buisness.user.crud.commands.FindByEmailTS;
+import modelo.buisness.user.crud.commands.FindByNickTS;
+import modelo.buisness.util.CommandExecutor;
 
 import java.util.Optional;
 

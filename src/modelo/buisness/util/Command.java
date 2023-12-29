@@ -1,7 +1,7 @@
-package repositorios.buisness.util;
+package modelo.buisness.util;
 
 
-import repositorios.BusinessException;
+import modelo.BusinessException;
 
 public interface Command<T> {
 

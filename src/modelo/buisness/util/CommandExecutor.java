@@ -1,8 +1,8 @@
-package repositorios.buisness.util;
+package modelo.buisness.util;
 
-import repositorios.BusinessException;
-import repositorios.PersistenceException;
-import repositorios.utils.*;
+import modelo.BusinessException;
+import modelo.PersistenceException;
+import modelo.utils.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;

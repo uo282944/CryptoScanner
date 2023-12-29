@@ -1,4 +1,4 @@
-package repositorios.utils;
+package modelo.utils;
 
 
 import java.sql.*;

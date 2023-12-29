@@ -1,4 +1,4 @@
-package repositorios.persistence.util;
+package modelo.persistence.util;
 
 import java.io.IOException;
 import java.util.Properties;

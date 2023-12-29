@@ -1,7 +1,7 @@
-package repositorios.buisness.user.assembler;
+package modelo.buisness.user.assembler;
 
-import repositorios.buisness.user.UsersService.UserBLDto;
-import repositorios.persistence.user.UserGateway.UserDALDto;
+import modelo.buisness.user.UsersService.UserBLDto;
+import modelo.persistence.user.UserGateway.UserDALDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

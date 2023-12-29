@@ -1,4 +1,4 @@
-package repositorios.persistence;
+package modelo.persistence;
 
 import java.util.List;
 import java.util.Optional;

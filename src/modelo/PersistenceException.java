@@ -1,4 +1,4 @@
-package repositorios;
+package modelo;
 
 public class PersistenceException extends RuntimeException {
 

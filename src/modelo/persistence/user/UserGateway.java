@@ -1,7 +1,7 @@
-package repositorios.persistence.user;
+package modelo.persistence.user;
 
-import repositorios.persistence.Gateway;
-import repositorios.persistence.user.UserGateway.UserDALDto;
+import modelo.persistence.Gateway;
+import modelo.persistence.user.UserGateway.UserDALDto;
 
 import java.util.Optional;
 

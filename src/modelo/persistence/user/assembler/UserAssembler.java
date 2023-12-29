@@ -1,6 +1,6 @@
-package repositorios.persistence.user.assembler;
+package modelo.persistence.user.assembler;
 
-import repositorios.persistence.user.UserGateway.UserDALDto;
+import modelo.persistence.user.UserGateway.UserDALDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

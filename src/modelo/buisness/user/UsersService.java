@@ -1,6 +1,6 @@
-package repositorios.buisness.user;
+package modelo.buisness.user;
 
-import repositorios.BusinessException;
+import modelo.BusinessException;
 
 import java.util.Optional;
 
