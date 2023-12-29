@@ -4,7 +4,7 @@ import repositorios.PersistenceException;
 import repositorios.persistence.user.UserGateway;
 import repositorios.persistence.util.Conf;
 import repositorios.persistence.user.assembler.UserAssembler;
-import utils.Jdbc;
+import repositorios.utils.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -116,9 +116,47 @@ public class UserGatewayImpl implements UserGateway {
         try {
             Connection c = Jdbc.getCurrentConnection();
 
-            pst = c.prepareStatement("select * from TUsers where id=?");
+            pst = c.prepareStatement("select * from TUsers where nick=?");
 
             pst.setString(1, nick);
+
+            rs = pst.executeQuery();
+            user = UserAssembler.toUserDALDto(rs);
+
+        } catch (SQLException e) {
+            throw new PersistenceException(e);
+        }
+        finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch(SQLException e)
+                { /* ignore */ }
+            }
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch(SQLException e) {
+                    /* ignore */
+                }
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public Optional<UserDALDto> findByEmail(String email) {
+        Optional<UserDALDto> user;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            Connection c = Jdbc.getCurrentConnection();
+
+            pst = c.prepareStatement("select * from TUsers where email=?");
+
+            pst.setString(1, email);
 
             rs = pst.executeQuery();
             user = UserAssembler.toUserDALDto(rs);

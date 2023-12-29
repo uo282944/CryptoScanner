@@ -18,11 +18,10 @@ public class AddUserTS implements Command<UserBLDto> {
     @Override
     public UserBLDto execute() throws BusinessException {
         if (PersistenceFactory.forUser().findByNick(user.nick).isPresent()) {
-            throw new BusinessException("El mecanico que se intenta añadir ya existe");
+            throw new BusinessException("El usuario que se intenta añadir ya existe");
         }
 
         user.id = UUID.randomUUID().toString();
-        user.version = 1L;
         PersistenceFactory.forUser().add(UserAssembler.toDALDto(user));
         return user;
     }

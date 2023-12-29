@@ -22,7 +22,6 @@ public class UserAssembler {
 
         UserDALDto result = new UserDALDto();
         result.id = arg.id;
-        result.version = arg.version;
         result.nick = arg.nick;
         result.password = arg.password;
         result.email = arg.email;
@@ -33,7 +32,6 @@ public class UserAssembler {
 
         UserBLDto result = new UserBLDto();
         result.id = arg.id;
-        result.version = arg.version;
         result.nick = arg.nick;
         result.password = arg.password;
         result.email = arg.email;

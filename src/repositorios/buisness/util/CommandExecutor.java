@@ -2,7 +2,7 @@ package repositorios.buisness.util;
 
 import repositorios.BusinessException;
 import repositorios.PersistenceException;
-import utils.Jdbc;
+import repositorios.utils.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;

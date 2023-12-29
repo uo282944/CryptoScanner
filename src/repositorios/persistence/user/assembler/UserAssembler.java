@@ -20,7 +20,6 @@ public class UserAssembler {
 
         UserDALDto value = new UserDALDto();
         value.id = rs.getString("id");
-        value.version = rs.getLong("version");
 
         value.nick = rs.getString("nick");
         value.password = rs.getString("password");
