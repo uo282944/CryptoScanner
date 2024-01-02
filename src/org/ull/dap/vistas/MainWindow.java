@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
+	private String userlog;
 	private JPanel panelPrincipal;
 	private JPanel pnLogin;
 
@@ -106,5 +107,13 @@ public class MainWindow extends JFrame {
 	public void pasarPanel(String nombre){
 		CardLayout cl = (CardLayout) (panelPrincipal.getLayout());
 		cl.show(panelPrincipal, nombre);
+	}
+
+	public String getUserlog(){
+		return userlog;
+	}
+
+	public void setUserlog(String userlog){
+		this.userlog = userlog;
 	}
 }

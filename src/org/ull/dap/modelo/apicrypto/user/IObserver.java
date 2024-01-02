@@ -1,4 +1,4 @@
-package org.ull.dap.modelo.buisness.apicrypto.user;
+package org.ull.dap.modelo.apicrypto.user;
 
 
 import java.util.List;

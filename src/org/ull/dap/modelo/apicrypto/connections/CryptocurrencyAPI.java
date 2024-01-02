@@ -1,8 +1,8 @@
-package org.ull.dap.modelo.buisness.apicrypto.connections;
+package org.ull.dap.modelo.apicrypto.connections;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ull.dap.modelo.buisness.apicrypto.enitity.Asset;
+import org.ull.dap.modelo.apicrypto.enitity.Asset;
 
 import java.net.URI;
 import java.net.http.HttpClient;

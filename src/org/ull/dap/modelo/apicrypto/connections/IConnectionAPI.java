@@ -1,4 +1,4 @@
-package org.ull.dap.modelo.buisness.apicrypto.connections;
+package org.ull.dap.modelo.apicrypto.connections;
 
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
