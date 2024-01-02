@@ -13,12 +13,20 @@ public class PanelControlController {
         var user = m.getUserlog();
         try {
             var crypto = BuisnessFactory.forCryptoService().findCryptoByName(pn.getTxElegir().getText());
-            SeguimientoBLDto s = new SeguimientoBLDto();
-            s.id_usuario = user.id;
-            s.id_crypto = crypto.get().id;
-            BuisnessFactory.forSeguimientoService().addSeguimiento(s);
+            if (crypto.isPresent()) {
+                SeguimientoBLDto s = new SeguimientoBLDto();
+                s.id_usuario = user.id;
+                s.id_crypto = crypto.get().id;
+                BuisnessFactory.forSeguimientoService().addSeguimiento(s);
+                pn.crearSeguimiento(pn.getTxElegir().getText());
+                pn.getTxElegir().setText("");
+                pn.revalidate();
+                pn.repaint();
+            }else{
+                JOptionPane.showMessageDialog(m, "No existe ese coin o no esta registrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
         }catch (BusinessException e){
-            JOptionPane.showMessageDialog(m, "No existe en coin!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(m, "No existe ese coin o no esta registrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
     }
 }

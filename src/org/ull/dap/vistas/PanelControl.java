@@ -1,7 +1,12 @@
 package org.ull.dap.vistas;
 
+import org.ull.dap.controladores.PanelControlController;
+import org.ull.dap.controladores.SignController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
 
@@ -219,6 +224,11 @@ public class PanelControl extends JPanel {
 	private JButton getBtnElegir() {
 		if (btnElegir == null) {
 			btnElegir = new JButton("OK");
+			btnElegir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new PanelControlController().crearSeguimiento(m, PanelControl.this);
+				}
+			});
 		}
 		return btnElegir;
 	}

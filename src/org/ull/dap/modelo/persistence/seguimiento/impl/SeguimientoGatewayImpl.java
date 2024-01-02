@@ -25,7 +25,7 @@ public class SeguimientoGatewayImpl implements SeguimientoGateway {
         try {
             Connection c = Jdbc.getCurrentConnection();
 
-            pst = c.prepareStatement("insert into TUsers(id, persona_id, crypto_id) values (?, ?, ?)");
+            pst = c.prepareStatement("insert into TSeguimientos(id, id_usuario, id_crypto) values (?, ?, ?)");
             pst.setString(1, seguimientoDALDto.id);
             pst.setString(2, seguimientoDALDto.id_usuario);
             pst.setString(3, seguimientoDALDto.id_crypto);
