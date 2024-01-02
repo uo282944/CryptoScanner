@@ -17,9 +17,14 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainWindow extends JFrame {
 
+	public String cryptoSelected = "bitcoin";
+	public Map<String, List<Double>> precios = new HashMap<>();
 	private UserBLDto userlog;
 	private JPanel panelPrincipal;
 	private JPanel pnLogin;

@@ -5,9 +5,11 @@ import org.ull.dap.modelo.buisness.crypto.CryptosService;
 import org.ull.dap.modelo.buisness.seguimiento.SeguimientosService;
 import org.ull.dap.modelo.buisness.seguimiento.crud.commands.AddSeguimientoTS;
 import org.ull.dap.modelo.buisness.seguimiento.crud.commands.FindCryptosByIdTS;
+import org.ull.dap.modelo.buisness.seguimiento.crud.commands.FindSeguimientoByIdsTS;
 import org.ull.dap.modelo.buisness.util.CommandExecutor;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SeguimientosServiceImpl implements SeguimientosService {
 
@@ -19,5 +21,10 @@ public class SeguimientosServiceImpl implements SeguimientosService {
     @Override
     public List<CryptosService.CryptoBLDto> findCryptosById(String idUsuario) throws BusinessException {
         return new CommandExecutor().execute(new FindCryptosByIdTS(idUsuario));
+    }
+
+    @Override
+    public Optional<SeguimientoBLDto> findSeguimientoByIds(String idUsuario, String idCrypto) throws BusinessException {
+        return new CommandExecutor().execute(new FindSeguimientoByIdsTS(idUsuario, idCrypto));
     }
 }
