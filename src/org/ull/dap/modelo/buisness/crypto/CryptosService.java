@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface CryptosService {
     CryptoBLDto addCrypto(CryptoBLDto crypto) throws BusinessException;
-    Optional<CryptoBLDto> findUserByName(String nombreCrypto) throws BusinessException;
+    Optional<CryptoBLDto> findCryptoByName(String nombreCrypto) throws BusinessException;
 
     public class CryptoBLDto {
 

@@ -19,7 +19,7 @@ public class UserAssembler {
     private static UserDALDto resultSetToUserDALDto(ResultSet rs) throws SQLException {
 
         UserDALDto value = new UserDALDto();
-        value.id = rs.getString("id");
+        value.id = rs.getString("id").substring(0, rs.getString("id").length() - 6);
 
         value.nick = rs.getString("nick");
         value.password = rs.getString("password");

@@ -2,6 +2,8 @@ package org.ull.dap.vistas;
 
 import org.ull.dap.controladores.InicioController;
 import org.ull.dap.controladores.MainController;
+import org.ull.dap.modelo.apicrypto.user.User;
+import org.ull.dap.modelo.buisness.user.UsersService.UserBLDto;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,12 +20,12 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
-	private String userlog;
+	private UserBLDto userlog;
 	private JPanel panelPrincipal;
 	private JPanel pnLogin;
 
 	private JPanel pnRegister;
-	private JPanel pnControl;
+	public PanelControl pnControl;
 	private JPanel pnInicio;
 	private JLabel lblTituloAplicacion;
 	private JPanel pnInicioInferior;
@@ -109,11 +111,11 @@ public class MainWindow extends JFrame {
 		cl.show(panelPrincipal, nombre);
 	}
 
-	public String getUserlog(){
+	public UserBLDto getUserlog(){
 		return userlog;
 	}
 
-	public void setUserlog(String userlog){
+	public void setUserlog(UserBLDto userlog){
 		this.userlog = userlog;
 	}
 }

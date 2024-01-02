@@ -16,7 +16,7 @@ public class CryptosServiceImpl implements CryptosService {
     }
 
     @Override
-    public Optional<CryptoBLDto> findUserByName(String nombreCrypto) throws BusinessException {
+    public Optional<CryptoBLDto> findCryptoByName(String nombreCrypto) throws BusinessException {
         return new CommandExecutor().execute(new FindByNombreTS(nombreCrypto));
     }
 }
