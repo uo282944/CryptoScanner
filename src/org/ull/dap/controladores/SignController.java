@@ -23,7 +23,7 @@ public class SignController {
             var user = BuisnessFactory.forUserService().findUserByNick(nick);
             if (user.isPresent()){
                 if (user.get().password.equals(password)){
-                    m.pasarPanel("CONTROL");
+                    pasarPanelControl(m, user.get().nick);
                 }else{
                     pn.getTxaErroresLogin().setText("The username and the password don't match");
                 }
@@ -64,8 +64,10 @@ public class SignController {
         }
     }
 
-    public void pasarPanelControl(){
+    private void pasarPanelControl(MainWindow m, String userlog){
+        m.setUserlog(userlog);
 
+        m.pasarPanel("CONTROL");
     }
 
     private void limpiarPanelRegistro(PanelRegistro pn) {

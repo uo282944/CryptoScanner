@@ -1,7 +1,7 @@
-package org.ull.dap.modelo.buisness.apicrypto.notifier;
+package org.ull.dap.modelo.apicrypto.notifier;
 
 
-import org.ull.dap.modelo.buisness.apicrypto.user.IObserver;
+import org.ull.dap.modelo.apicrypto.user.IObserver;
 
 public interface Observable {
 

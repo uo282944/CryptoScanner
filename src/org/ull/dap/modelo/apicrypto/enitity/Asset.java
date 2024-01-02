@@ -1,4 +1,4 @@
-package org.ull.dap.modelo.buisness.apicrypto.enitity;
+package org.ull.dap.modelo.apicrypto.enitity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

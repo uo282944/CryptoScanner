@@ -1,11 +1,11 @@
-package org.ull.dap.modelo.buisness.apicrypto.notifier;
+package org.ull.dap.modelo.apicrypto.notifier;
 
 
-import org.ull.dap.modelo.buisness.apicrypto.connections.CryptocurrencyAPI;
-import org.ull.dap.modelo.buisness.apicrypto.connections.IConnectionAPI;
-import org.ull.dap.modelo.buisness.apicrypto.enitity.Asset;
-import org.ull.dap.modelo.buisness.apicrypto.user.IObserver;
-import org.ull.dap.modelo.buisness.apicrypto.user.User;
+import org.ull.dap.modelo.apicrypto.connections.CryptocurrencyAPI;
+import org.ull.dap.modelo.apicrypto.connections.IConnectionAPI;
+import org.ull.dap.modelo.apicrypto.enitity.Asset;
+import org.ull.dap.modelo.apicrypto.user.IObserver;
+import org.ull.dap.modelo.apicrypto.user.User;
 
 import java.util.*;
 import java.util.concurrent.Executors;
