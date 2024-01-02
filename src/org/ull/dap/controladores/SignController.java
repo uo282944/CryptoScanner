@@ -2,8 +2,10 @@ package org.ull.dap.controladores;
 
 import org.ull.dap.modelo.BusinessException;
 import org.ull.dap.modelo.buisness.BuisnessFactory;
+import org.ull.dap.modelo.buisness.crypto.CryptosService.CryptoBLDto;
 import org.ull.dap.modelo.buisness.user.UsersService.UserBLDto;
 import org.ull.dap.vistas.MainWindow;
+import org.ull.dap.vistas.PanelControl;
 import org.ull.dap.vistas.PanelLogin;
 import org.ull.dap.vistas.PanelRegistro;
 
@@ -23,7 +25,7 @@ public class SignController {
             var user = BuisnessFactory.forUserService().findUserByNick(nick);
             if (user.isPresent()){
                 if (user.get().password.equals(password)){
-                    pasarPanelControl(m, user.get().nick);
+                    pasarPanelControl(m, user.get());
                 }else{
                     pn.getTxaErroresLogin().setText("The username and the password don't match");
                 }
@@ -64,9 +66,12 @@ public class SignController {
         }
     }
 
-    private void pasarPanelControl(MainWindow m, String userlog){
+    private void pasarPanelControl(MainWindow m, UserBLDto userlog) throws BusinessException {
         m.setUserlog(userlog);
-
+        var listaCryptos = BuisnessFactory.forSeguimientoService().findCryptosById(userlog.id);
+        for (CryptoBLDto a : listaCryptos){
+            m.pnControl.crearSeguimiento(a.nombre);
+        }
         m.pasarPanel("CONTROL");
     }
 

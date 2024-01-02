@@ -1,17 +1,9 @@
 package org.ull.dap.vistas;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
-import java.awt.GridLayout;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
 
 public class PanelControl extends JPanel {
 	private JPanel pnControl;
@@ -217,7 +209,7 @@ public class PanelControl extends JPanel {
 		}
 		return pnElegir;
 	}
-	private JTextField getTxElegir() {
+	public JTextField getTxElegir() {
 		if (txElegir == null) {
 			txElegir = new JTextField();
 			txElegir.setColumns(10);
@@ -233,7 +225,31 @@ public class PanelControl extends JPanel {
 	private JPanel getPnCryptosElegidas() {
 		if (pnCryptosElegidas == null) {
 			pnCryptosElegidas = new JPanel();
+			pnCryptosElegidas.setLayout(new GridLayout(10, 1, 0, 0));
 		}
 		return pnCryptosElegidas;
+	}
+
+	public void crearSeguimiento(String nombre){
+		JPanel pn = new JPanel();
+		JLabel foto = new JLabel();
+		foto.setIcon(resizeIcon(new ImageIcon("src/org/ull/dap/img/"+nombre+".png"),35,35));
+		JButton boton = new JButton("Borrar");
+		JLabel texto = new JLabel(nombre);
+		texto = new JLabel(nombre);
+		texto.setHorizontalAlignment(SwingConstants.CENTER);
+		texto.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		pn.setLayout(new BorderLayout(0, 0));
+		pn.add(foto, BorderLayout.WEST);
+		pn.add(boton, BorderLayout.EAST);
+		pn.add(texto, BorderLayout.CENTER);
+		pn.setVisible(true);
+		getPnCryptosElegidas().add(pn);
+	}
+
+	private ImageIcon resizeIcon(ImageIcon icon, int width, int height) {
+		Image image = icon.getImage(); // Obtiene la imagen del ImageIcon
+		Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Redimensiona la imagen
+		return new ImageIcon(newImage); // Crea un nuevo ImageIcon con la imagen redimensionada
 	}
 }
