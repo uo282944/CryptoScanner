@@ -64,6 +64,10 @@ public class SignController {
         }
     }
 
+    public void pasarPanelControl(){
+
+    }
+
     private void limpiarPanelRegistro(PanelRegistro pn) {
         pn.getTxNick().setText("");
         pn.getTxEmail().setText("");
