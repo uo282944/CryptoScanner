@@ -1,5 +1,11 @@
 package org.ull.dap.controladores;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.time.Second;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.ull.dap.modelo.BusinessException;
 import org.ull.dap.modelo.buisness.BuisnessFactory;
 import org.ull.dap.modelo.buisness.seguimiento.SeguimientosService.SeguimientoBLDto;
@@ -7,8 +13,11 @@ import org.ull.dap.vistas.MainWindow;
 import org.ull.dap.vistas.PanelControl;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 
 public class PanelControlController {
@@ -54,6 +63,7 @@ public class PanelControlController {
                 text = text+d+"\n";
             }
             m.pnControl.txaHistorico.setText(text);
+            crearGrafico(m,nombreCrypto);
         }
     }
 
@@ -69,7 +79,42 @@ public class PanelControlController {
                  text = text+d+"\n";
             }
             m.pnControl.txaHistorico.setText(text);
+            crearGrafico(m, nameCrypto);
         }
+    }
+
+    private void crearGrafico(MainWindow m, String nameCrypto) {
+        TimeSeries series = new TimeSeries("Datos de Ejemplo");
+
+        // Añadir datos a la serie
+        Date initialTime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(initialTime);
+        for (double precio: m.precios.get(nameCrypto)) {
+            series.add(new Second(calendar.getTime()), precio);
+            calendar.add(Calendar.SECOND, 40);
+        }
+
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
+        dataset.addSeries(series);
+
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                "Gráfico de Líneas en Precio/Tiempo de "+nameCrypto,
+                "Tiempo",
+                "Valor",
+                dataset,
+                false,
+                true,
+                false);
+
+        // Crear un panel del gráfico
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Crear y mostrar un marco para ver el gráfico
+        m.pnControl.getPnGrafica().removeAll();
+        m.pnControl.getPnGrafica().add(chartPanel, BorderLayout.CENTER);
+        m.pnControl.getPnGrafica().revalidate();
+        m.pnControl.getPnGrafica().repaint();
     }
 
     private void pintarExtremos(MainWindow m, double price) {

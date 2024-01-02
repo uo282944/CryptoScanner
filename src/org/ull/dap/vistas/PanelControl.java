@@ -210,9 +210,10 @@ public class PanelControl extends JPanel {
 		}
 		return txMinimo;
 	}
-	private JPanel getPnGrafica() {
+	public JPanel getPnGrafica() {
 		if (pnGrafica == null) {
 			pnGrafica = new JPanel();
+			pnGrafica.setLayout(new BorderLayout(0, 0));
 		}
 		return pnGrafica;
 	}
