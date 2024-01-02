@@ -6,6 +6,8 @@ import org.ull.dap.modelo.buisness.BuisnessFactory;
 import org.ull.dap.modelo.persistence.crypto.CryptoGateway.CryptoDALDto;
 import org.ull.dap.modelo.persistence.seguimiento.SeguimientoGateway;
 import org.ull.dap.modelo.persistence.crypto.assembler.CryptoAssembler;
+import org.ull.dap.modelo.persistence.seguimiento.assembler.SeguimientoAssembler;
+import org.ull.dap.modelo.persistence.user.assembler.UserAssembler;
 import org.ull.dap.modelo.utils.Jdbc;
 
 import java.sql.Connection;
@@ -115,5 +117,42 @@ public class SeguimientoGatewayImpl implements SeguimientoGateway {
             }
         }
         return cryptos;
+    }
+
+    @Override
+    public Optional<SeguimientoDALDto> findSeguimientoByIds(String idusuario, String idcrypto) {
+        Optional<SeguimientoDALDto> seguimiento;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            Connection c = Jdbc.getCurrentConnection();
+
+            pst = c.prepareStatement("select * from TSeguimientos where id_usuario=? AND id_crypto=?");
+
+            pst.setString(1, idusuario);
+            pst.setString(2, idcrypto);
+
+            rs = pst.executeQuery();
+            seguimiento = SeguimientoAssembler.toSeguimientoDALDto(rs);
+
+        } catch (SQLException e) {
+            throw new PersistenceException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) { /* ignore */ }
+            }
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch (SQLException e) {
+                    /* ignore */
+                }
+            }
+        }
+        return seguimiento;
     }
 }

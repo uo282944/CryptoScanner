@@ -11,6 +11,8 @@ public interface SeguimientosService {
     SeguimientoBLDto addSeguimiento(SeguimientoBLDto seg) throws BusinessException;
     List<CryptoBLDto> findCryptosById(String idUsuario) throws BusinessException;
 
+    Optional<SeguimientoBLDto> findSeguimientoByIds(String idUsuario, String idCrypto) throws BusinessException;
+
     public class SeguimientoBLDto {
 
         public String id;

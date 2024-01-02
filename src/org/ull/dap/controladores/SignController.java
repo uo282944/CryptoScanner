@@ -1,6 +1,8 @@
 package org.ull.dap.controladores;
 
 import org.ull.dap.modelo.BusinessException;
+import org.ull.dap.modelo.apicrypto.notifier.CryptocurrencyNotifier;
+import org.ull.dap.modelo.apicrypto.user.User;
 import org.ull.dap.modelo.buisness.BuisnessFactory;
 import org.ull.dap.modelo.buisness.crypto.CryptosService.CryptoBLDto;
 import org.ull.dap.modelo.buisness.user.UsersService.UserBLDto;
@@ -9,6 +11,9 @@ import org.ull.dap.vistas.PanelControl;
 import org.ull.dap.vistas.PanelLogin;
 import org.ull.dap.vistas.PanelRegistro;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -67,12 +72,36 @@ public class SignController {
     }
 
     private void pasarPanelControl(MainWindow m, UserBLDto userlog) throws BusinessException {
+        List<String> cryptos = new ArrayList<>();
+
         m.setUserlog(userlog);
         var listaCryptos = BuisnessFactory.forSeguimientoService().findCryptosById(userlog.id);
+        m.cryptoSelected = listaCryptos.get(0).nombre;
+        m.pnControl.lblCrypto.setText("Crypto: "+m.cryptoSelected);
         for (CryptoBLDto a : listaCryptos){
             m.pnControl.crearSeguimiento(a.nombre);
+            cryptos.add(a.nombre);
         }
+        realizarStartEnSegundoPlano(m, userlog,cryptos);
         m.pasarPanel("CONTROL");
+    }
+
+
+    private void realizarStartEnSegundoPlano(MainWindow m, UserBLDto userlog, List<String> cryptos) {
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                var cc = new CryptocurrencyNotifier();
+                cc.subscribe(new User(userlog.nick,1L,cryptos));
+                cc.start(m);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+            }
+        };
+        worker.execute(); // Inicia el SwingWorker
     }
 
     private void limpiarPanelRegistro(PanelRegistro pn) {

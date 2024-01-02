@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
 
@@ -17,22 +19,23 @@ public class PanelControl extends JPanel {
 	private JLabel lblControl;
 	private JPanel pnHistorico;
 	private JLabel lblHistorico;
-	private JTextArea txaHistorico;
+	public JTextArea txaHistorico;
 	private JPanel pnControlCentro;
 	private JPanel pnExtremos;
 	private JPanel pnMaximo;
 	private JPanel pnMinimo;
 	private JPanel pnTitulo;
-	private JLabel lblCrypto;
+	public JLabel lblCrypto;
 	private JLabel lblMaximo;
-	private JTextField txMaximo;
+	public JTextField txMaximo;
 	private JLabel lblMinimo;
-	private JTextField txMinimo;
+	public JTextField txMinimo;
 	private JPanel pnGrafica;
 	private JPanel pnElegir;
 	private JTextField txElegir;
 	private JButton btnElegir;
 	private JPanel pnCryptosElegidas;
+	private JScrollPane scpnHistorico;
 
 	private MainWindow m;
 	/**
@@ -68,6 +71,24 @@ public class PanelControl extends JPanel {
 		}
 		return pnSeguimiento;
 	}
+
+	private JScrollPane getScpnHistorico() {
+		if (scpnHistorico == null) {
+			scpnHistorico = new JScrollPane();
+			scpnHistorico.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scpnHistorico.setViewportView(getTxaHistorico());
+		}
+		return scpnHistorico;
+	}
+	private JTextArea getTxaHistorico() {
+		if (txaHistorico == null) {
+			txaHistorico = new JTextArea();
+			txaHistorico.setWrapStyleWord(true);
+			txaHistorico.setLineWrap(true);
+			txaHistorico.setEditable(false);
+		}
+		return txaHistorico;
+	}
 	private JLabel getLblSeguimiento() {
 		if (lblSeguimiento == null) {
 			lblSeguimiento = new JLabel("   Seguimiento   ");
@@ -89,7 +110,7 @@ public class PanelControl extends JPanel {
 			pnHistorico.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			pnHistorico.setLayout(new BorderLayout(0, 0));
 			pnHistorico.add(getLblHistorico(), BorderLayout.NORTH);
-			pnHistorico.add(getTxaHistorico(), BorderLayout.CENTER);
+			pnHistorico.add(getScpnHistorico(), BorderLayout.CENTER);
 		}
 		return pnHistorico;
 	}
@@ -99,15 +120,6 @@ public class PanelControl extends JPanel {
 			lblHistorico.setFont(new Font("Tahoma", Font.BOLD, 25));
 		}
 		return lblHistorico;
-	}
-	private JTextArea getTxaHistorico() {
-		if (txaHistorico == null) {
-			txaHistorico = new JTextArea();
-			txaHistorico.setEditable(false);
-			txaHistorico.setWrapStyleWord(true);
-			txaHistorico.setLineWrap(true);
-		}
-		return txaHistorico;
 	}
 	private JPanel getPnControlCentro() {
 		if (pnControlCentro == null) {
@@ -246,9 +258,14 @@ public class PanelControl extends JPanel {
 		foto.setIcon(resizeIcon(new ImageIcon("src/org/ull/dap/img/"+nombre+".png"),35,35));
 		JButton boton = new JButton("Borrar");
 		JLabel texto = new JLabel(nombre);
-		texto = new JLabel(nombre);
 		texto.setHorizontalAlignment(SwingConstants.CENTER);
 		texto.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		texto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new PanelControlController().cambiarCryproSeleccionada(m, nombre);
+			}
+		});
 		pn.setLayout(new BorderLayout(0, 0));
 		pn.add(foto, BorderLayout.WEST);
 		pn.add(boton, BorderLayout.EAST);
