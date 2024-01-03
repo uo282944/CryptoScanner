@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelRegistro extends JPanel {
 	private JTextField txNick;
@@ -26,6 +28,7 @@ public class PanelRegistro extends JPanel {
 	 */
 	public PanelRegistro(MainWindow m) {
 		this.m = m;
+		setBackground(new Color(243, 238, 234));
 		setLayout(null);
 		add(getTxNick());
 		add(getTxEmail());
@@ -44,7 +47,10 @@ public class PanelRegistro extends JPanel {
 	public JTextField getTxNick() {
 		if (txNick == null) {
 			txNick = new JTextField();
-			txNick.setBounds(40, 146, 369, 19);
+			txNick.setBorder(null);
+			txNick.setBackground(Color.white);
+			txNick.setBorder(BorderFactory.createEmptyBorder(1, 10, 1, 0));
+			txNick.setBounds(65, 100, 369, 29);
 			txNick.setColumns(10);
 		}
 		return txNick;
@@ -53,7 +59,10 @@ public class PanelRegistro extends JPanel {
 	public JTextField getTxEmail() {
 		if (txEmail == null) {
 			txEmail = new JTextField();
-			txEmail.setBounds(40, 255, 369, 19);
+			txEmail.setBorder(null);
+			txEmail.setBackground(Color.white);
+			txEmail.setBorder(BorderFactory.createEmptyBorder(1, 10, 1, 0));
+			txEmail.setBounds(65, 200, 369, 29);
 			txEmail.setColumns(10);
 		}
 		return txEmail;
@@ -62,7 +71,10 @@ public class PanelRegistro extends JPanel {
 	public JTextField getTxPassword() {
 		if (txPassword == null) {
 			txPassword = new JTextField();
-			txPassword.setBounds(40, 353, 369, 19);
+			txPassword.setBorder(null);
+			txPassword.setBackground(Color.white);
+			txPassword.setBorder(BorderFactory.createEmptyBorder(1, 10, 1, 0));
+			txPassword.setBounds(65, 300, 369, 29);
 			txPassword.setColumns(10);
 		}
 		return txPassword;
@@ -71,12 +83,29 @@ public class PanelRegistro extends JPanel {
 	private JButton getBtnRegistrar() {
 		if (btnRegistrar == null) {
 			btnRegistrar = new JButton("Register");
+			btnRegistrar.setBackground(new Color(178, 165, 155));
+			btnRegistrar.setBorder(BorderFactory.createEmptyBorder(5, 50, 5, 50));
+			btnRegistrar.setBorderPainted(false);
+			// Agrega un manejador de eventos del ratón para cambiar la apariencia en hover
+			btnRegistrar.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					btnRegistrar.setBackground(new Color(142, 132, 125));
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btnRegistrar.setBackground(new Color(178, 165, 155));
+
+				}
+			});
 			btnRegistrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					new SignController().register(PanelRegistro.this, m);
 				}
 			});
-			btnRegistrar.setBounds(174, 421, 85, 21);
+			btnRegistrar.setBounds(175, 370, 155, 29);
 		}
 		return btnRegistrar;
 	}
@@ -84,8 +113,8 @@ public class PanelRegistro extends JPanel {
 	private JLabel getLblTitulo() {
 		if (lblTitulo == null) {
 			lblTitulo = new JLabel("Register");
-			lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			lblTitulo.setBounds(40, 10, 249, 40);
+			lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 30));
+			lblTitulo.setBounds(205, 10, 249, 40);
 		}
 		return lblTitulo;
 	}
@@ -96,8 +125,8 @@ public class PanelRegistro extends JPanel {
 			txaErroresNick.setEditable(false);
 			txaErroresNick.setForeground(Color.RED);
 			txaErroresNick.setWrapStyleWord(true);
-			txaErroresNick.setBackground(SystemColor.control);
-			txaErroresNick.setBounds(40, 175, 369, 33);
+			txaErroresNick.setBackground(new Color(243, 238, 234));
+			txaErroresNick.setBounds(65, 130, 369, 33);
 		}
 		return txaErroresNick;
 	}
@@ -108,8 +137,8 @@ public class PanelRegistro extends JPanel {
 			txaErroresEmail.setWrapStyleWord(true);
 			txaErroresEmail.setForeground(Color.RED);
 			txaErroresEmail.setEditable(false);
-			txaErroresEmail.setBackground(SystemColor.control);
-			txaErroresEmail.setBounds(40, 279, 369, 33);
+			txaErroresEmail.setBackground(new Color(243, 238, 234));
+			txaErroresEmail.setBounds(65, 230, 369, 33);
 		}
 		return txaErroresEmail;
 	}
@@ -120,8 +149,8 @@ public class PanelRegistro extends JPanel {
 			txaErroresContraseña.setEditable(false);
 			txaErroresContraseña.setForeground(Color.RED);
 			txaErroresContraseña.setWrapStyleWord(true);
-			txaErroresContraseña.setBackground(SystemColor.control);
-			txaErroresContraseña.setBounds(40, 378, 369, 33);
+			txaErroresContraseña.setBackground(new Color(243, 238, 234));
+			txaErroresContraseña.setBounds(65, 330, 369, 33);
 		}
 		return txaErroresContraseña;
 	}
@@ -129,8 +158,8 @@ public class PanelRegistro extends JPanel {
 	private JLabel getLblContraseña() {
 		if (lblContraseña == null) {
 			lblContraseña = new JLabel("Password");
-			lblContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblContraseña.setBounds(40, 322, 192, 28);
+			lblContraseña.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblContraseña.setBounds(65, 270, 192, 28);
 		}
 		return lblContraseña;
 	}
@@ -138,8 +167,8 @@ public class PanelRegistro extends JPanel {
 	private JLabel getLblEmail() {
 		if (lblEmail == null) {
 			lblEmail = new JLabel("Email");
-			lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblEmail.setBounds(40, 217, 192, 28);
+			lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblEmail.setBounds(65, 170, 192, 28);
 		}
 		return lblEmail;
 	}
@@ -147,8 +176,8 @@ public class PanelRegistro extends JPanel {
 	private JLabel getLblNick() {
 		if (lblNick == null) {
 			lblNick = new JLabel("Username");
-			lblNick.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblNick.setBounds(40, 107, 192, 28);
+			lblNick.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblNick.setBounds(65, 70, 192, 28);
 		}
 		return lblNick;
 	}
