@@ -120,6 +120,43 @@ public class SeguimientoGatewayImpl implements SeguimientoGateway {
     }
 
     @Override
+    public void removeSeguimiento(String idUsuario, String idCrypto) {
+        Connection c = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            c = Jdbc.getCurrentConnection();
+
+            pst = c.prepareStatement("DELETE FROM TSeguimientos\n" +
+                    "WHERE id_usuario = ?\n" +
+                    "  AND id_crypto = (SELECT id FROM TCryptos WHERE nombre = ?);");
+            pst.setString(1, idUsuario);
+            pst.setString(2, idCrypto);
+
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new PersistenceException(e);
+        }
+        finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch(SQLException e)
+                { /* ignore */ }
+            }
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch(SQLException e) { /* ignore */
+
+                }
+            }
+        }
+    }
+
+    @Override
     public Optional<SeguimientoDALDto> findSeguimientoByIds(String idusuario, String idcrypto) {
         Optional<SeguimientoDALDto> seguimiento;
 

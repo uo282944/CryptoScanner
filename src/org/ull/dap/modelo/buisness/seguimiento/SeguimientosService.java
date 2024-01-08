@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface SeguimientosService {
     SeguimientoBLDto addSeguimiento(SeguimientoBLDto seg) throws BusinessException;
+    void deleteSeguimiento(String idUsuario, String idCrypto) throws BusinessException;
     List<CryptoBLDto> findCryptosById(String idUsuario) throws BusinessException;
 
     Optional<SeguimientoBLDto> findSeguimientoByIds(String idUsuario, String idCrypto) throws BusinessException;

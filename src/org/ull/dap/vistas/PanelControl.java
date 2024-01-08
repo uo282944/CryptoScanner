@@ -258,6 +258,11 @@ public class PanelControl extends JPanel {
 		JLabel foto = new JLabel();
 		foto.setIcon(resizeIcon(new ImageIcon("src/org/ull/dap/img/"+nombre+".png"),35,35));
 		JButton boton = new JButton("Borrar");
+		boton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new PanelControlController().borrarCrypto(m, nombre, pn);
+			}
+		});
 		JLabel texto = new JLabel(nombre);
 		texto.setHorizontalAlignment(SwingConstants.CENTER);
 		texto.setFont(new Font("Tahoma", Font.PLAIN, 17));

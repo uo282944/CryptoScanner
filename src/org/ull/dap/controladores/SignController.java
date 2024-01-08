@@ -73,16 +73,17 @@ public class SignController {
 
     private void pasarPanelControl(MainWindow m, UserBLDto userlog) throws BusinessException {
         List<String> cryptos = new ArrayList<>();
-
         m.setUserlog(userlog);
         var listaCryptos = BuisnessFactory.forSeguimientoService().findCryptosById(userlog.id);
-        m.cryptoSelected = listaCryptos.get(0).nombre;
-        m.pnControl.lblCrypto.setText("Crypto: "+m.cryptoSelected);
-        for (CryptoBLDto a : listaCryptos){
-            m.pnControl.crearSeguimiento(a.nombre);
-            cryptos.add(a.nombre);
+        if (listaCryptos.size() != 0) {
+            m.cryptoSelected = listaCryptos.get(0).nombre;
+            m.pnControl.lblCrypto.setText("Crypto: " + m.cryptoSelected);
+            for (CryptoBLDto a : listaCryptos) {
+                m.pnControl.crearSeguimiento(a.nombre);
+                cryptos.add(a.nombre);
+            }
         }
-        realizarStartEnSegundoPlano(m, userlog,cryptos);
+        realizarStartEnSegundoPlano(m, userlog, cryptos);
         m.pasarPanel("CONTROL");
     }
 
@@ -91,9 +92,9 @@ public class SignController {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                var cc = new CryptocurrencyNotifier();
-                cc.subscribe(new User(userlog.nick,1L,cryptos));
-                cc.start(m);
+                m.usersuscribe = new User(userlog.nick,1L,cryptos);
+                m.cc.subscribe(m.usersuscribe);
+                m.cc.start(m);
                 return null;
             }
 

@@ -2,6 +2,7 @@ package org.ull.dap.vistas;
 
 import org.ull.dap.controladores.InicioController;
 import org.ull.dap.controladores.MainController;
+import org.ull.dap.modelo.apicrypto.notifier.CryptocurrencyNotifier;
 import org.ull.dap.modelo.apicrypto.user.User;
 import org.ull.dap.modelo.buisness.user.UsersService.UserBLDto;
 
@@ -24,8 +25,11 @@ import java.util.Map;
 public class MainWindow extends JFrame {
 
 	public String cryptoSelected = "bitcoin";
+
+	public CryptocurrencyNotifier cc = new CryptocurrencyNotifier();
 	public Map<String, List<Double>> precios = new HashMap<>();
 	private UserBLDto userlog;
+	public User usersuscribe;
 	private JPanel panelPrincipal;
 	private JPanel pnLogin;
 
