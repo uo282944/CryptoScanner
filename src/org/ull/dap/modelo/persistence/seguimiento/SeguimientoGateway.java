@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface SeguimientoGateway extends Gateway<SeguimientoGateway.SeguimientoDALDto> {
     List<CryptoDALDto> findCryptosById(String id);
+    void removeSeguimiento(String idUsuario, String idCrypto);
     Optional<SeguimientoDALDto> findSeguimientoByIds(String idusuario, String idcrypto);
 
     public class SeguimientoDALDto{

@@ -6,6 +6,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.ull.dap.Main;
 import org.ull.dap.modelo.BusinessException;
 import org.ull.dap.modelo.buisness.BuisnessFactory;
 import org.ull.dap.modelo.buisness.seguimiento.SeguimientosService.SeguimientoBLDto;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 
 public class PanelControlController {
@@ -33,6 +35,7 @@ public class PanelControlController {
                     s.id_crypto = crypto.get().id;
                     BuisnessFactory.forSeguimientoService().addSeguimiento(s);
                     pn.crearSeguimiento(pn.getTxElegir().getText());
+                    suscribirSeguimiento(m, pn.getTxElegir().getText());
                     pn.revalidate();
                     pn.repaint();
                 }else{
@@ -47,24 +50,36 @@ public class PanelControlController {
         }
     }
 
+    private void suscribirSeguimiento(MainWindow m, String text) {
+        List<String> cryptos = m.usersuscribe.getNameCryptos();
+        cryptos.add(text);
+        m.usersuscribe.setNameCryptos(cryptos);
+        m.cc.subscribe(m.usersuscribe);
+    }
+
     public void cambiarCryproSeleccionada(MainWindow m, String nombreCrypto){
         m.cryptoSelected = nombreCrypto;
-        double maximo = Collections.max(m.precios.get(nombreCrypto));
-        double minimo = Collections.min(m.precios.get(nombreCrypto));
+        double maximo = 0;
+        double minimo = 0;
+        if (!(m.precios.get(nombreCrypto) == null)){
+            maximo = Collections.max(m.precios.get(nombreCrypto));
+            minimo = Collections.min(m.precios.get(nombreCrypto));
+        }
         m.pnControl.txMaximo.setText(0+"");
         m.pnControl.txMinimo.setText(0+"");
         m.pnControl.lblCrypto.setText("Crypto: "+nombreCrypto);
         pintarExtremos(m, maximo);
         pintarExtremos(m, minimo);
+        String text = "";
+        if (!m.cryptoSelected.isBlank() && m.precios.get(m.cryptoSelected) != null){
 
-        if (!m.cryptoSelected.isBlank()){
-            String text = "";
             for (Double d: m.precios.get(m.cryptoSelected)){
                 text = text+d+"\n";
             }
-            m.pnControl.txaHistorico.setText(text);
+
             crearGrafico(m,nombreCrypto);
         }
+        m.pnControl.txaHistorico.setText(text);
     }
 
     public void pintarHistorico(MainWindow m, String nameCrypto ,double price){
@@ -81,6 +96,24 @@ public class PanelControlController {
             m.pnControl.txaHistorico.setText(text);
             crearGrafico(m, nameCrypto);
         }
+    }
+
+    public void borrarCrypto(MainWindow m, String nombre, JPanel pn) {
+        try {
+            var lista = m.usersuscribe.getNameCryptos();
+            BuisnessFactory.forSeguimientoService().deleteSeguimiento(m.getUserlog().id, nombre);
+            lista.remove(nombre);
+            m.cc.unsubscribe(m.usersuscribe);
+            m.usersuscribe.setNameCryptos(lista);
+            m.cc.subscribe(m.usersuscribe);
+            JPanel pn_padre = (JPanel)pn.getParent();
+            pn_padre.remove(pn);
+            m.revalidate();
+            m.repaint();
+        }catch (BusinessException e){
+            e.getStackTrace();
+        }
+
     }
 
     private void crearGrafico(MainWindow m, String nameCrypto) {

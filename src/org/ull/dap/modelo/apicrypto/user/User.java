@@ -45,6 +45,10 @@ public class User implements IObserver {
         return nameCryptos;
     }
 
+    public void setNameCryptos(List<String> nameCryptos) {
+        this.nameCryptos = nameCryptos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
